@@ -1,0 +1,68 @@
+<code>import heapq
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Item</span>:</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, name, relevance, price, sort_order, sort_parameter)</span></span>:
+            <span class="hljs-keyword">self</span>.name = name
+            <span class="hljs-keyword">self</span>.relevance = relevance
+            <span class="hljs-keyword">self</span>.price = price
+            <span class="hljs-keyword">self</span>.sort_order = sort_order
+            <span class="hljs-keyword">self</span>.sort_parameter = sort_parameter
+    
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__lt__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, other)</span></span>:
+            <span class="hljs-comment"># if ascending, maxheap </span>
+            <span class="hljs-comment"># if descending, minheap</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_parameter == <span class="hljs-number">0</span>:
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_order == <span class="hljs-number">0</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &gt; other.name
+                <span class="hljs-symbol">else:</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &lt; other.name
+            elif <span class="hljs-keyword">self</span>.sort_parameter == <span class="hljs-number">1</span>:
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.relevance == other.<span class="hljs-symbol">relevance:</span>
+                    <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_order == <span class="hljs-number">0</span>:
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &gt; other.name
+                    <span class="hljs-symbol">else:</span>
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &lt; other.name
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_order == <span class="hljs-number">0</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.relevance &gt; other.relevance
+                <span class="hljs-symbol">else:</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.relevance &lt; other.relevance
+            <span class="hljs-symbol">else:</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.price == other.<span class="hljs-symbol">price:</span>
+                    <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_order == <span class="hljs-number">0</span>:
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &gt; other.name
+                    <span class="hljs-symbol">else:</span>
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.name &lt; other.name
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.sort_order == <span class="hljs-number">0</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.price &gt; other.price
+                <span class="hljs-symbol">else:</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>.price &lt; other.price
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">items_per_page</span><span class="hljs-params">(num_of_items, items, sort_parameter, sort_order, items_per_page, page_number)</span></span>:
+        k = (page_number+<span class="hljs-number">1</span>)*items_per_page
+        heap = []
+    
+        <span class="hljs-comment"># maintain heap size k</span>
+        <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> <span class="hljs-symbol">items:</span>
+            heapq.heappush(heap, Item(item[<span class="hljs-number">0</span>], item[<span class="hljs-number">1</span>], item[<span class="hljs-number">2</span>], sort_order, sort_parameter))
+            <span class="hljs-keyword">if</span> len(heap) &gt; <span class="hljs-symbol">k:</span>
+                heapq.heappop(heap)
+        
+        <span class="hljs-comment"># pop off top k items and reverse list to get correct priority</span>
+        ret = [heapq.heappop(heap) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(heap))]
+    
+        <span class="hljs-comment"># pop off items from pages before the target page</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(page_number*items_per_page):
+            ret.pop()
+    
+        <span class="hljs-keyword">return</span> [item.name <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> ret[<span class="hljs-symbol">:</span><span class="hljs-symbol">:-</span><span class="hljs-number">1</span>]]
+    
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>))
+    print(items_per_page(<span class="hljs-number">5</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>], [<span class="hljs-string">'item4'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">20</span>],[<span class="hljs-string">'item5'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">21</span>]], <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>))
+    print(items_per_page(<span class="hljs-number">3</span>, [[<span class="hljs-string">'item1'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>], [<span class="hljs-string">'item2'</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">'item3'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>]], <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>))
+    </code>
