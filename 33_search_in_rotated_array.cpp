@@ -1,3 +1,4 @@
+//binary search by finding the pivot position
 class Solution {
 public:
     int search(vector<int>& nums, int target) {

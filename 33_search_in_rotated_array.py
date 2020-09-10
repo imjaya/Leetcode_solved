@@ -1,3 +1,4 @@
+#binary search by finding the pivot position
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         start = 0
