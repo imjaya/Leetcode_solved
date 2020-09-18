@@ -1,4 +1,4 @@
-
+#two pointer approach, one fast pointer and one slow pointer
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
         # Floyd Cycle Detection Algorithm, Tortoise and Hare Algorithm, Fast and slow pointers

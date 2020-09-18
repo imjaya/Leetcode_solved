@@ -1,3 +1,4 @@
+// two pointer approach one fast pointer and one slow pointer
 class Solution {
 public:
    bool hasCycle(ListNode *head) {
