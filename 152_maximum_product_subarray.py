@@ -1,3 +1,4 @@
+#max product similar to max sum
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         if len(nums) == 0:
