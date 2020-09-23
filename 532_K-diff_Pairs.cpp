@@ -1,5 +1,8 @@
+// k different pairs
 class Solution {
+
 public:
+    
     int findPairs(vector<int>& nums, int k) {
         if(k<0){return 0;}
         unordered_map<int,int> mp;      

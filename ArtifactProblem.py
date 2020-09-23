@@ -1,3 +1,4 @@
+# draw the x for digged position and then compare
 def solution(N, artifacts, searched):
     # write your code in Python
     search = set(searched.split(' '))
