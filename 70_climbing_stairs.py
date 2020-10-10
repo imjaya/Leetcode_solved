@@ -1,3 +1,4 @@
+##dynamic programming
 class Solution:
     def climbStairs(self, n: int) -> int:
         dp=[1,1]
