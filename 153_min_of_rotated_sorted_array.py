@@ -1,3 +1,4 @@
+#two aproaches 
 #Approach1 Brute Force (wrong approach)
 class Solution:
     def findMin(self, nums: List[int]) -> int:
