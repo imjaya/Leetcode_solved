@@ -1,4 +1,4 @@
-#max product similar to max sum
+#max product similar to max sum order of N
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         if len(nums) == 0:
