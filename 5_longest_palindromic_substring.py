@@ -1,3 +1,4 @@
+#find the longest even length palindrome with str[i] and str[i+1] as mid point and update the maximumlength palindromic substring
 def expand(str, low, high):
         length = len(str)
         while low >= 0 and high < length and str[low] == str[high]:
