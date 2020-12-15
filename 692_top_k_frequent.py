@@ -1,3 +1,4 @@
+#form a dictionary structure and then heapify the dict as a tuple with neagtive if count value and pop the k number of elements
 import heapq
 
 class Solution:
