@@ -1,3 +1,4 @@
+#append to a list and check if there is a pair
 class Solution:
 		def isValid(self, s: str) -> bool:
 			if not s:
