@@ -1,3 +1,4 @@
+#finding the missing number in a consecutive set of numbers
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         
