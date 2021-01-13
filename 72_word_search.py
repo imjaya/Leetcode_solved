@@ -1,3 +1,4 @@
+# bfs approach
 def dfs(board,i,j,count,word):
         if(count==len(word)):
             return True

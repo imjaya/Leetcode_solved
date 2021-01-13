@@ -1,3 +1,4 @@
+//  bfs approach to find the word
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
