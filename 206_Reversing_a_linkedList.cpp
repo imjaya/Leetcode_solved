@@ -1,3 +1,4 @@
+//While head store previous as null and current as head while current loop back
 class Solution { public: ListNode* reverseList(ListNode* head) {
         if (head == NULL) 
             return NULL; 
