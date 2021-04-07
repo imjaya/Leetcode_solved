@@ -1,3 +1,4 @@
+#hrap approach O(n)
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         intervals.sort(key= lambda i: i[0])
