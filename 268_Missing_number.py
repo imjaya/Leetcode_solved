@@ -10,4 +10,26 @@ class Solution:
         actual_sum=sum(nums)
         
         return(expected_sum-actual_sum)
+    
+# XOR Approach TC: O(2N) SC: O(1)
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        result = 0
+        for num in nums:
+            result ^=num
+        for i in range(0, len(nums)+1):
+            result ^= i
+        return result
+    
+# Total Sum Approach TC: O(N) SC(1)
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        result = n*(n+1)/2
+
+        for num in nums:
+            result -= num
+        return result
+
+
         

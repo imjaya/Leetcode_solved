@@ -7,11 +7,11 @@ class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         prev=None
         
-        while(head!= None):
-            next_node=head.next
+        while head:
+            next=head.next
             head.next=prev
             prev=head
-            head=next_node
+            head=next
             
             
         return prev
