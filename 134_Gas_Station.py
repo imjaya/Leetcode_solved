@@ -1,49 +1,16 @@
-# class Solution:
-#     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        
-        
-        
-#         for i in range(0,len(gas)):
-#             crossed=0
-#             balance=gas[i]
-#             current=i
-#             while(crossed<len(gas)):
-                
-                
-#                 if(balance<cost[current]):
-#                     break
-#                 else:
-#                     crossed+=1
-#                     current+=1
-#                     if(current>=len(gas)):
-#                         current=0+len(gas)-current
-#                     if(current==0):
-#                         balance=balance-cost[len(gas)-1]+gas[current]
-                        
-#                     else:
-#                         balance=balance-cost[current-1]+gas[current]
-#                         # print(balance)
-#             if(crossed==len(gas)):
-#                 return i
-#         return -1
+# There is only one valid solution, meaning there is only one node from which you can start and end.
+# even if there are more than one valid start positions, it always has to be the first valid start pos.
+# TC: O(N) SC: O(1)
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        tank = 0
-        start_gas = 0
-        index = 0
+        total_gain = 0
+        cur_gain  = 0
+        answer = 0
+
         for i in range(len(gas)):
-            start = gas[i] - cost[i]
-            
-            if tank + start < 0:
-                tank = 0
-                index = i + 1
-            else:
-                tank += start
-                
-            start_gas += start
-        
-        return index if start_gas >= 0 else -1
-                        
-            
-            
-            
+            total_gain += gas[i] - cost[i]
+            cur_gain += gas[i] - cost[i]
+            if cur_gain < 0:
+                cur_gain = 0
+                answer = i + 1
+        return answer if total_gain >= 0 else - 1

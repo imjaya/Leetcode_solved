@@ -1,18 +1,21 @@
-class Solution(object):
-    def lengthOfLastWord(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        r = len(s) - 1
-        res = 0
-        while r >= 0 and s[r] == ' ':
-            r -= 1
-            
-        while r >= 0:
-            if s[r] != ' ':
-                r -= 1
-                res += 1
-            else:
-                break
-        return res
+#Start from end skip the initial space characters and start counting
+# as soon as you reach a non-space character till you reach the next space charater.
+# TC: O(N) SC: O(1)
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        # s = s.strip()
+        # words = s.split(" ")
+        # return len(words[-1])
+        cur_index  = len(s)
+        length = 0
+        while cur_index > 0:
+            cur_index -= 1
+            if length > 0 and s[cur_index] == " ":
+                return length
+            if s[cur_index] != " ":
+                length += 1
+        return length
+
+
+
+        
